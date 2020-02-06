@@ -33,6 +33,32 @@ class App extends Component {
     characters: ''
   };
 
+
+  constructor( props )
+  {
+      super( props );
+
+      this.state = {
+          characters: '',
+          completed: 0,
+      }
+
+      this.stateRefresh = this.stateRefresh.bind(this);
+  }
+
+
+  stateRefresh()
+  {
+      this.setState(
+          {
+              characters: '',
+              completed: 0,
+          }
+      );
+
+      this.callApi().then( res  => this.setState( {characters: res } ))
+  }
+
   async callApi( )
   {
     const response = await fetch("/api/get_characters");
@@ -69,19 +95,23 @@ class App extends Component {
                   <TableCell>최대 채력</TableCell>
                   <TableCell>최대 AP</TableCell>
                   <TableCell>스킬 셋</TableCell>
+                  <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {this.state.characters ? this.state.characters.map(c => {
+                {this.state.characters ? this.state.characters.map(c =>
+                {
                   console.log("c.image>?", c.image);
                   c.image = c.image ? c.image : "./test.png";
 
-                  return <CharacterTable key={c.id} id={c.id} image={c.image} name={c.name} age={c.age} sex={c.sex} max_hp={c.max_hp} max_ap={c.max_ap} skill_set_id={c.skill_set_id} />
+                  return <CharacterTable key={c.id} id={c.id} image={c.image} name={c.name} age={c.age}
+                                         sex={c.sex} max_hp={c.max_hp} max_ap={c.max_ap}
+                                         skill_set_id={c.skill_set_id} stateRefresh={this.stateRefresh} />
                 }) : ''}
               </TableBody>
             </Table>
           </Paper>
-          <CharacterAddForm/>
+          <CharacterAddForm stateRefresh={this.stateRefresh}/>
         </div>
     );
   }

@@ -1,32 +1,46 @@
 import React from 'react';
 import { post } from 'axios';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
+const styles = theme => ({
+    hidden: {
+        display: 'none'
+    }
+});
 
 class CharacterAddForm extends React.Component
 {
-
+    default_state =
+        {
+            sprite: null,
+            sprite_file_name: '',
+            name: '',
+            age: '',
+            sex: '',
+            user_id: 'test_account',
+            story_id: 0, //TODO : 테스트 !
+            max_hp: 5,
+            max_ap: 100,
+            skill_set_id: '스킬 셋은 아직 미지원입니다.',
+        };
 
     constructor(props )
     {
         super(props);
 
-        this.state =
-            {
-                sprite: null,
-                sprite_file_name: '',
-                name: '',
-                age: '',
-                sex: '',
-                user_id: 'test_account',
-                story_id: 0, //TODO : 테스트 !
-                max_hp: 5,
-                max_ap: 100,
-                skill_set_id: '스킬 셋은 아직 미지원입니다.',
-            };
+        this.state = this.default_state;
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleFileChange = this.handleFileChange.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
+        this.handleClickOpen = this.handleClickOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
         this.createCharacter = this.createCharacter.bind(this);
     }
 
@@ -37,6 +51,7 @@ class CharacterAddForm extends React.Component
         this.createCharacter()
             .then((response) => {
                 console.log(response.data);
+                this.props.stateRefresh();
             });
 
         this.setState(
@@ -52,7 +67,6 @@ class CharacterAddForm extends React.Component
                 max_ap: 100,
                 skill_set_id: '스킬 셋은 아직 미지원입니다.',
             });
-        window.location.reload();
     }
 
     handleFileChange( event )
@@ -62,13 +76,13 @@ class CharacterAddForm extends React.Component
             sprite_file_name: event.target.value
         });
     }
+
     handleValueChange(event)
     {
         let nextState = {};
         nextState[event.target.name] = event.target.value;
 
         this.setState(nextState);
-
     }
 
     createCharacter(){
@@ -92,19 +106,52 @@ class CharacterAddForm extends React.Component
         return post(url, formData, config)
     }
 
+    handleClickOpen()
+    {
+        this.setState(
+            {
+                open: true
+            }
+        )
+    }
+
+    handleClose()
+    {
+        this.setState( this.default_state )
+    }
 
     render() {
+        const classes = this.props;
 
         return (
-            <form onSubmit={this.handleFormSubmit}>
-                <h1>캐릭터 추가</h1>
-                프로필 이미지: <input type="file" name="sprite" file={this.state.sprite} value={this.state.sprite_file_name} onChange={this.handleFileChange} /><br/>
-                이름: <input type="text" name="name" value={this.state.name} onChange={this.handleValueChange} /><br/>
-                나이: <input type="text" name="age" value={this.state.age} onChange={this.handleValueChange} /><br/>
-                성별: <input type="text" name="sex" value={this.state.sex} onChange={this.handleValueChange} /><br/>
-                <button type="submit">추가하기</button>
-            </form>
-        )
+            <div>
+                <Button variant="contained" color="primary" onClick={this.handleClickOpen}>
+                    캐릭터 추가하기
+                </Button>
+
+                <Dialog open={this.state.open} onClose={this.handleClose}>
+                    <DialogTitle>캐릭터 추가</DialogTitle>
+
+                    <DialogContent>
+                        <input className={classes.hidden} accept="image/*" id="raised-button-file" type="file" file={this.state.sprite} value={this.state.sprite_file_name} onChange={this.handleFileChange} />
+                        <label htmlFor="raised-button-file">
+                            <Button variant="contained" color="primary" component="span" name="file">
+                                {this.state.sprite_file_name === ''? "프로필 이미지 선택" : this.state.sprite_file_name}
+                            </Button>
+                        </label><br/>
+
+                        <TextField label="이름" type="text" name="userName" value={this.state.name} onChange={this.handleValueChange} /><br/>
+                        <TextField label="생년월일" type="text" name="birthday" value={this.state.age} onChange={this.handleValueChange} /><br/>
+                        <TextField label="성별" type="text" name="gender" value={this.state.sex} onChange={this.handleValueChange} /><br/>
+                    </DialogContent>
+
+                    <DialogActions>
+                        <Button variant="contained" color="primary" onClick={this.handleFormSubmit}>추가</Button>
+                        <Button variant="outlined" color="primary" onClick={this.handleClose}>닫기</Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
+        );
     }
 }
 

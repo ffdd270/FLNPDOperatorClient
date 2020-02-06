@@ -2,6 +2,7 @@ import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from "@material-ui/core/TableCell";
 
+import CharacterDelete from "./character_delete";
 
 class CharacterTable extends React.Component
 {
@@ -29,6 +30,7 @@ class CharacterTable extends React.Component
                 <TableCell>{this.props.max_hp}</TableCell>
                 <TableCell>{this.props.max_ap}</TableCell>
                 <TableCell>{this.props.skill_set_id}</TableCell>
+                <TableCell><CharacterDelete stateRefresh={this.props.stateRefresh} id={this.props.id}/></TableCell>
             </TableRow>
         )
     }
