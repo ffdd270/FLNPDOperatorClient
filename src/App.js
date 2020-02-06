@@ -11,7 +11,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
-
 import CharacterTable from './components/character_table_view';
 import CharacterAddForm from "./components/character_add_form";
 

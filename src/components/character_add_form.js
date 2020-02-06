@@ -37,10 +37,11 @@ class CharacterAddForm extends React.Component
         this.state = this.default_state;
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+
         this.handleFileChange = this.handleFileChange.bind(this);
         this.handleValueChange = this.handleValueChange.bind(this);
         this.handleClickOpen = this.handleClickOpen.bind(this);
-        this.handleClose = this.handleClose.bind(this);
         this.createCharacter = this.createCharacter.bind(this);
     }
 
@@ -54,19 +55,8 @@ class CharacterAddForm extends React.Component
                 this.props.stateRefresh();
             });
 
-        this.setState(
-            {
-                sprite: null,
-                sprite_file_name: '',
-                name: '',
-                age: '',
-                sex: '',
-                user_id: 'test_account',
-                story_id: 0, //TODO : 테스트 !
-                max_hp: 5,
-                max_ap: 100,
-                skill_set_id: '스킬 셋은 아직 미지원입니다.',
-            });
+        this.setState( this.default_state );
+        this.setState( {open: false} );
     }
 
     handleFileChange( event )
@@ -79,6 +69,15 @@ class CharacterAddForm extends React.Component
 
     handleValueChange(event)
     {
+        let regex = /^[0-9]+$/;
+
+        console.log( "regex.exec(event.target.value)?", regex.exec(event.target.value));
+
+        if (event.target.type === "number" &&  ( regex.exec(event.target.value)  == null ) )
+        {
+            return;
+        }
+
         let nextState = {};
         nextState[event.target.name] = event.target.value;
 
@@ -117,11 +116,15 @@ class CharacterAddForm extends React.Component
 
     handleClose()
     {
-        this.setState( this.default_state )
+        this.setState(
+            {
+                open: false
+            }
+        )
     }
 
     render() {
-        const classes = this.props;
+        const { classes } = this.props;
 
         return (
             <div>
@@ -140,9 +143,16 @@ class CharacterAddForm extends React.Component
                             </Button>
                         </label><br/>
 
-                        <TextField label="이름" type="text" name="userName" value={this.state.name} onChange={this.handleValueChange} /><br/>
-                        <TextField label="생년월일" type="text" name="birthday" value={this.state.age} onChange={this.handleValueChange} /><br/>
-                        <TextField label="성별" type="text" name="gender" value={this.state.sex} onChange={this.handleValueChange} /><br/>
+                        <TextField label="이름" type="text" name="name" value={this.state.name} onChange={this.handleValueChange} /><br/>
+                        <TextField label="나이"
+                                   type="number"
+                                   name="age"
+                                   placeholder={'[1-100]'}
+                                   value={this.state.age}
+                                   onChange={this.handleValueChange}
+                        /><br/>
+
+                        <TextField label="성별" type="text" name="sex" value={this.state.sex} onChange={this.handleValueChange} /><br/>
                     </DialogContent>
 
                     <DialogActions>
@@ -155,4 +165,4 @@ class CharacterAddForm extends React.Component
     }
 }
 
-export default CharacterAddForm
+export default withStyles(styles)(CharacterAddForm)
