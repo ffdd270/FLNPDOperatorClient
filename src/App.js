@@ -13,7 +13,12 @@ import TableCell from '@material-ui/core/TableCell';
 
 import CharacterTable from './components/character_table_view';
 import CharacterAddForm from "./components/character_add_form";
-
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from '@material-ui/icons/Menu';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
@@ -21,6 +26,19 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     overflowX: "auto"
   },
+    paper: {
+        marginLeft: 18,
+        marginRight: 18
+    },
+   tableHead:{
+     fontSize: '1.0rem'
+   },
+   menuButton:{
+       marginRight: theme.spacing(2)
+    },
+    title: {
+        flexGrow: 1,
+    },
   table: {
     minWidth: 1080
   }
@@ -79,22 +97,30 @@ class App extends Component {
   render() {
     const { classes } = this.props;
 
+    const cellList = ["번호", "이미지", "이름", "나이", "성별", "최대 채력", "최대 AP", "스킬 셋", "Action"]
 
     return (
         <div>
-          <Paper className={classes.root}>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" className={classes.title}>
+                        FLNPD Operator Client
+                    </Typography>
+                    <Button color="inherit">Login</Button>
+                </Toolbar>
+            </AppBar>
+          <Paper className={classes.paper}>
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
-                  <TableCell>번호</TableCell>
-                  <TableCell>이미지</TableCell>
-                  <TableCell>이름</TableCell>
-                  <TableCell>나이</TableCell>
-                  <TableCell>성별</TableCell>
-                  <TableCell>최대 채력</TableCell>
-                  <TableCell>최대 AP</TableCell>
-                  <TableCell>스킬 셋</TableCell>
-                  <TableCell>Action</TableCell>
+                    {
+                        cellList.map( c=> {
+                            return <TableCell className={classes.tableHead}>{c}</TableCell>
+                        })
+                    }
                 </TableRow>
               </TableHead>
               <TableBody>
