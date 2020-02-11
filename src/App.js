@@ -97,7 +97,7 @@ class App extends Component {
   render() {
     const { classes } = this.props;
 
-    const cellList = ["번호", "이미지", "이름", "나이", "성별", "최대 채력", "최대 AP", "스킬 셋", "Action"]
+    const cellList = ["번호", "이미지", "이름", "나이", "성별", "최대 채력", "최대 AP", "스킬 셋", "Action"];
 
     return (
         <div>
@@ -112,7 +112,7 @@ class App extends Component {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
-          <Paper className={classes.paper}>
+            <Paper className={classes.paper}>
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
