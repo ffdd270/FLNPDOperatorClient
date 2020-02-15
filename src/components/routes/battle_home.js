@@ -1,11 +1,11 @@
 import React from 'react';
-import SimplePaper from '../ui/character_card_form'
+import CharacterCardForm from '../ui/character_card_form'
 import socketio from "socket.io-client";
 
 class BattleHome extends React.Component
 {
     state = {
-        characters : ''
+        characters : []
     };
 
 
@@ -20,11 +20,15 @@ class BattleHome extends React.Component
         (() => {
             socket.emit('init', { name: 'bella' });
 
-            socket.on('welcome', (msg) =>
+            socket.on('welcome', async (msg) =>
             {
                 console.log(msg);
+                let body = await this.callGetCharacter( 1 );
+                let characters = [ body ];
 
-                //socket.emit('')
+                this.setState( {
+                    characters : characters
+                } );
             });
         })();
     }
@@ -40,13 +44,14 @@ class BattleHome extends React.Component
 
     render()
     {
-
-
-
-
         return (
             <div>
-                <SimplePaper/>
+                {
+                    this.state.characters ? this.state.characters.map( c =>
+                    {
+                        return <CharacterCardForm character={ c } />
+                    }) : ''
+                }
             </div>
         )
     }
