@@ -1,6 +1,7 @@
 import React from 'react';
 import CharacterCardForm from '../ui/character_card_form'
 import socketio from "socket.io-client";
+import characters from "../../test/test_datas";
 
 class BattleHome extends React.Component
 {
@@ -20,26 +21,39 @@ class BattleHome extends React.Component
         (() => {
             socket.emit('init', { name: 'bella' });
 
-            socket.on('welcome', async (msg) =>
+            // expect characters.
+            socket.on('units', async ( msg )=>
             {
-                console.log(msg);
-                let body = await this.callGetCharacter( 1 );
-                let characters = [ body ];
-
                 this.setState( {
-                    characters : characters
-                } );
+                    characters : msg
+                });
+            });
+
+            socket.on('added unit', async ( msg )=>
+            {
+
+                characters.push( msg );
+
+                this.setState({
+                    characters: characters
+                });
             });
         })();
-    }
 
+        this.callGetCharacter('Sample').then(
+            (json)=>
+            {
+                this.setState( {
+                    characters : json
+                } );
+            }
+        );
+    }
 
     async callGetCharacter( id )
     {
-        const response = await fetch("/api/get_character/" + id);
-        const body = await response.json();
-
-        return body;
+        const response = await fetch("/api/get_party_units/" + id);
+        return await response.json();
     }
 
     render()
@@ -55,7 +69,6 @@ class BattleHome extends React.Component
             </div>
         )
     }
-
 
 }
 

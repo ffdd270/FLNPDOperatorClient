@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import socketio from 'socket.io-client';
 
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import BattleHome from "./components/routes/battle_home";

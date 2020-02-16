@@ -30,7 +30,7 @@ class CharacterAddForm extends React.Component
             skill_set_id: '스킬 셋은 아직 미지원입니다.',
         };
 
-    constructor(props )
+    constructor( props )
     {
         super(props);
 
