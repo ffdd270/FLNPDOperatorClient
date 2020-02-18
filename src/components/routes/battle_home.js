@@ -2,6 +2,7 @@ import React from 'react';
 import CharacterCardForm from '../ui/character_card_form'
 import socketio from "socket.io-client";
 import characters from "../../test/test_datas";
+import {Socket} from "../system/socket";
 
 class BattleHome extends React.Component
 {
@@ -17,28 +18,23 @@ class BattleHome extends React.Component
 
 
     componentDidMount() {
-        const socket = socketio.connect('http://localhost:3000');
-        (() => {
-            socket.emit('init', { name: 'bella' });
+        Socket.OnSocketInit();
 
-            // expect characters.
-            socket.on('units', async ( msg )=>
-            {
-                this.setState( {
-                    characters : msg
-                });
+        Socket.AddEventHandler( "units", (msg)=>{
+            this.setState( {
+                characters: msg
             });
+        });
 
-            socket.on('added unit', async ( msg )=>
-            {
+        Socket.AddEventHandler( "added unit", (msg)=>{
+            console.log ( msg );
 
-                characters.push( msg );
+            characters.push( msg );
 
-                this.setState({
-                    characters: characters
-                });
+            this.setState({
+                characters: characters
             });
-        })();
+        });
 
         this.callGetCharacter('Sample').then(
             (json)=>
