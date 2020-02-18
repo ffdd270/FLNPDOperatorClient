@@ -7,10 +7,12 @@ export class Socket
 
     static OnSocketInit( )
     {
-        this.socket = socketio.connect('http://localhost:3000');
-        this.socket.emit('init', { name: 'bella' });
+        if ( this.socket === undefined )
+        {
+            this.socket = socketio.connect('http://localhost:3000');
+            this.socket.emit('init', { name: 'bella' });
+        }
     }
-
 
     static AddEventHandler( event_key, event_func )
     {

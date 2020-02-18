@@ -3,6 +3,7 @@ import CharacterCardForm from '../ui/character_card_form'
 import socketio from "socket.io-client";
 import characters from "../../test/test_datas";
 import {Socket} from "../system/socket";
+import BattleChat from "../ui/battle_chat";
 
 class BattleHome extends React.Component
 {
@@ -62,6 +63,8 @@ class BattleHome extends React.Component
                         return <CharacterCardForm character={ c } />
                     }) : ''
                 }
+                <BattleChat/>
+                <BattleChat position_x={500} name={"Player Chat!"}/>
             </div>
         )
     }
