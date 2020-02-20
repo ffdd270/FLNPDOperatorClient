@@ -20,8 +20,12 @@ export class Socket
         this.socket.on( event_key, event_func );
     }
 
+    static SendMsg( event_key, event_value )
+    {
+        this.socket.emit( event_key, event_value );
+    }
+
 
     static socket;
     static msgHandler = new Map();
-
 }

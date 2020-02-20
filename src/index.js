@@ -6,6 +6,9 @@ import * as serviceWorker from './serviceWorker';
 
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import BattleHome from "./components/routes/battle_home";
+import {Socket} from "./components/system/socket";
+
+Socket.OnSocketInit();
 
 ReactDOM.render(
 <Router>

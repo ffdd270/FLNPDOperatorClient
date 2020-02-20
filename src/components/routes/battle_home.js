@@ -3,7 +3,7 @@ import CharacterCardForm from '../ui/character_card_form'
 import socketio from "socket.io-client";
 import characters from "../../test/test_datas";
 import {Socket} from "../system/socket";
-import BattleChat from "../ui/battle_chat";
+import BattleChat from "../ui/battle_chat_main";
 
 class BattleHome extends React.Component
 {
@@ -19,8 +19,6 @@ class BattleHome extends React.Component
 
 
     componentDidMount() {
-        Socket.OnSocketInit();
-
         Socket.AddEventHandler( "units", (msg)=>{
             this.setState( {
                 characters: msg
@@ -64,7 +62,6 @@ class BattleHome extends React.Component
                     }) : ''
                 }
                 <BattleChat/>
-                <BattleChat position_x={500} name={"Player Chat!"}/>
             </div>
         )
     }
