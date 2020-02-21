@@ -4,6 +4,7 @@ import {Card, Paper, TextField} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Socket} from "../system/socket";
+import ChatBox from "./chat_box";
 
 const styles = (theme) =>(
     {
@@ -31,6 +32,10 @@ const styles = (theme) =>(
             left: 20,
             fontSize: '2.0rem',
             color: 'white'
+        },
+
+        chat_list: {
+            position: 'relative'
         },
 
         input_box: {
@@ -81,6 +86,21 @@ class BattleChat extends React.Component
             chat_msgs.push( msg );
 
             console.log("msg? " + msg);
+            console.log("chat_msgs, ", chat_msgs);
+
+            this.setState(
+                {
+                    chat_msgs: chat_msgs
+                }
+            )
+        });
+
+        Socket.AddEventHandler( 'dice', (msg)=>
+        {
+            let chat_msgs = this.state.chat_msgs;
+            let string =  "Dice " + msg.max_number + " 이 " + msg.result_number + " 가 나왔습니다! ";
+
+            chat_msgs.push( string );
 
             this.setState(
                 {
@@ -143,6 +163,14 @@ class BattleChat extends React.Component
                         </Typography>
                     </div>
 
+                    <div>
+                        {
+                            this.state.chat_msgs ? this.state.chat_msgs.map( c=>
+                            {
+                                return <ChatBox text={c} />
+                            }) : ''
+                        }
+                    </div>
 
                     <div className={classes.input_box}>
                         <TextField

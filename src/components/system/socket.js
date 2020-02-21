@@ -22,7 +22,7 @@ export class Socket
 
     static SendMsg( event_key, event_value )
     {
-        this.socket.emit( event_key, event_value );
+        this.socket.emit(event_key, event_value);
     }
 
 
