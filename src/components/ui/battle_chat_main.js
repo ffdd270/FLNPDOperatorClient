@@ -68,6 +68,7 @@ class BattleChat extends React.Component
     };
 
 
+
     constructor(props)
     {
         super(props);
@@ -95,18 +96,25 @@ class BattleChat extends React.Component
             )
         });
 
-        Socket.AddEventHandler( 'dice', (msg)=>
+        Socket.AddEventHandler( 'command', (msg)=>
         {
-            let chat_msgs = this.state.chat_msgs;
-            let string =  "Dice " + msg.max_number + " 이 " + msg.result_number + " 가 나왔습니다! ";
+            if( msg.command === "dice" )
+            {
+                msg.max_number = msg.max_number === undefined ? 0 : msg.max_number;
+                msg.result_number = msg.result_number === undefined ? 0 : msg.result_number;
 
-            chat_msgs.push( string );
+                let chat_msgs = this.state.chat_msgs;
+                let string =  "Dice " + msg.max_number + " 이 " + msg.result_number + " 가 나왔습니다! ";
 
-            this.setState(
-                {
-                    chat_msgs: chat_msgs
-                }
-            )
+                chat_msgs.push( string );
+
+                this.setState(
+                    {
+                        chat_msgs: chat_msgs
+                    }
+                )
+            }
+
         });
     }
 
