@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 
 import { withStyles } from '@material-ui/core/styles';
-
-import './App.css';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
