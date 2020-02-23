@@ -9,7 +9,7 @@ export class Socket
     {
         if ( this.socket === undefined )
         {
-            this.socket = socketio.connect('http://localhost:3000');
+            this.socket = socketio.connect('http://localhost:5000');
             this.socket.emit('init', { name: 'bella' });
         }
     }

@@ -1,12 +1,11 @@
+const path = require('path');
 const webpack = require('webpack');
 module.exports = {
     mode: 'development',
-    entry: {
-        app: ['./src/index.js', 'react-router-dom' ] ,
-    },
+    entry: './src/index.js',
     output: {
-        path: '/dist',
-        filename: '[name].js',
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'index.js',
         publicPath: '/',
     },
     module: {
@@ -28,12 +27,20 @@ module.exports = {
                 ],
             },
             exclude: ['/node_modules'],
+        }, {
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader'],
         }],
+    },
+    devServer: {
+        publicPath: '/',
+        contentBase: './public',
+        historyApiFallback: true,
     },
     plugins: [ ],
     optimization: {},
     resolve: {
         modules: ['node_modules'],
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.js', '.json', '.jsx', '.css'],
     },
 };

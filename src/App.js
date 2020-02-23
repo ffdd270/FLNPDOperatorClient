@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-
+import './App.css';
 import CharacterTable from './components/character_table_view';
 import CharacterAddForm from "./components/character_add_form";
 import AppBar from "@material-ui/core/AppBar";
@@ -25,8 +25,8 @@ const styles = theme => ({
     overflowX: "auto"
   },
     paper: {
-        marginLeft: 18,
-        marginRight: 18
+        marginLeft: 0,
+        marginRight: 8
     },
    tableHead:{
      fontSize: '1.0rem'
