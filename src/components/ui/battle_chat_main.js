@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Socket} from "../system/socket";
 import ChatBox from "./chat_box";
+import {ChatLog} from "../system/chat_log";
 
 const styles = (theme) =>(
     {
@@ -68,7 +69,6 @@ class BattleChat extends React.Component
     };
 
 
-
     constructor(props)
     {
         super(props);
@@ -84,7 +84,16 @@ class BattleChat extends React.Component
         Socket.AddEventHandler('chat_income',( msg ) =>
         {
             let chat_msgs = this.state.chat_msgs;
-            chat_msgs.push( msg );
+            let last_element =  chat_msgs.length > 0 ? chat_msgs[chat_msgs.length - 1] : null;
+
+            if ( last_element !== null && last_element.sender === msg.sender )
+            {
+                last_element.addMassage( msg.msg )
+            }
+            else
+            {
+                chat_msgs.push( new ChatLog(  msg.sender, msg.msg ) );
+            }
 
             console.log("msg? " + msg);
             console.log("chat_msgs, ", chat_msgs);
@@ -106,7 +115,8 @@ class BattleChat extends React.Component
                 let chat_msgs = this.state.chat_msgs;
                 let string =  "Dice " + msg.max_number + " 이 " + msg.result_number + " 가 나왔습니다! ";
 
-                chat_msgs.push( string );
+                let new_log = new ChatLog( "BOT", string );
+                chat_msgs.push( new_log );
 
                 this.setState(
                     {
@@ -141,7 +151,11 @@ class BattleChat extends React.Component
             return;
         }
 
-        Socket.SendMsg( "chat", this.state.chat_msg );
+        Socket.SendMsg( "chat",
+            {
+                sender: "하루가카",
+                msg: this.state.chat_msg
+            } );
 
         this.setState( {
             chat_msg: ''
@@ -175,7 +189,7 @@ class BattleChat extends React.Component
                         {
                             this.state.chat_msgs ? this.state.chat_msgs.map( c=>
                             {
-                                return <ChatBox text={c} />
+                                return <ChatBox log={c} />
                             }) : ''
                         }
                     </div>

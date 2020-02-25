@@ -42,7 +42,9 @@ class ChatBox extends React.Component
 {
     render() {
         const {classes} = this.props;
-        let name = this.props.name === undefined ? '하루가카' : this.props.name;
+        let log = this.props.log;
+
+        let name = log.sender === undefined ? '하루가카' : log.sender;
 
         return (
             <div>
@@ -56,7 +58,12 @@ class ChatBox extends React.Component
                     />
                     <CardContent className={classes.content_pos}>
                         <Typography variant={"h3"} className={classes.text}>
-                            {this.props.text}
+                            {
+                                log.massages ? log.massages.map( c =>
+                                {
+                                    return <div>{c}</div>;
+                                }) : ''
+                            }
                         </Typography>
                     </CardContent>
                 </Card>
