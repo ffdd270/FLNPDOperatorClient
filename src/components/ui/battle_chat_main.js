@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import {Socket} from "../system/socket";
 import ChatBox from "./chat_box";
 import {ChatLog} from "../system/chat_log";
+import List from "@material-ui/core/List";
 
 const styles = (theme) =>(
     {
@@ -68,6 +69,7 @@ class BattleChat extends React.Component
         chat_msg: ''
     };
 
+    messagesEnd;
 
     constructor(props)
     {
@@ -103,6 +105,8 @@ class BattleChat extends React.Component
                     chat_msgs: chat_msgs
                 }
             )
+
+            this.messagesEnd.scrollIntoView({behavior: "smooth"});
         });
 
         Socket.AddEventHandler( 'command', (msg)=>
@@ -185,14 +189,20 @@ class BattleChat extends React.Component
                         </Typography>
                     </div>
 
-                    <div>
-                        {
-                            this.state.chat_msgs ? this.state.chat_msgs.map( c=>
+                    <div style={{height: '90%', overflowY: "scroll"}}>
+                        <div>
                             {
-                                return <ChatBox log={c} />
-                            }) : ''
-                        }
+                                this.state.chat_msgs ? this.state.chat_msgs.map( c=>
+                                {
+                                    return <ChatBox log={c} />
+                                }) : ''
+                            }
+                        </div>
+
+                        <div style={{ float:"left", clear: "both" }}
+                             ref={(el) => { this.messagesEnd = el; }}/>
                     </div>
+
 
                     <div className={classes.input_box}>
                         <TextField
