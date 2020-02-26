@@ -13,29 +13,50 @@ const styles = (theme) =>(
             padding: 0,
             'box-sizing': 'border-box'
         },
-        paper: {
-
+        root: {
+            'box-sizing': 'border-box',
+            width: "100%"
         },
         avatar: {
             backgroundColor: red[500],
+            position: 'relative',
+            left: 10,
+            top: 10,
+
             width: 40,
             height: 40,
         },
         user_name: {
             fontSize: "1.2rem",
             position: 'relative',
-            bottom: 10,
+
+            left: 50 + 10,
+            top: -30
         },
         content_pos: {
             position: 'relative',
-            left: 56,
-            top: -50,
+            left: 61,
+            top: -30,
+            'box-sizing': 'border-box',
+            //width: "100%",
         },
         text: {
-            fontSize: "1.0rem"
+            position: 'relative',
+            fontSize: "1.0rem",
+            'box-sizing': 'border-box'
         }
     }
 );
+
+/*
+                    <CardHeader
+                        avatar={
+                            <Avatar aria-label={"recipe"} className={classes.avatar}>
+                                {name[0]}
+                            </Avatar>}
+                        title={ <div className={classes.user_name}>{name}</div> }
+                    />
+ */
 
 
 class ChatBox extends React.Component
@@ -46,27 +67,30 @@ class ChatBox extends React.Component
 
         let name = log.sender === undefined ? '하루가카' : log.sender;
 
+        console.log("classes.root??", classes.root);
+
         return (
-            <div>
-                <Card elevation={0}>
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label={"recipe"} className={classes.avatar}>
-                                {name[0]}
-                            </Avatar>}
-                        title={ <div className={classes.user_name}>{name}</div> }
-                    />
-                    <CardContent className={classes.content_pos}>
-                        <Typography variant={"h3"} className={classes.text}>
+            <div className={classes.root}>
+                <div>
+                    <Avatar aria-label={"recipe"} className={classes.avatar}>
+                        {name[0]}
+                    </Avatar>
+
+                    <Typography variant={"h2"} className={classes.user_name}>
+                        {name}
+                    </Typography>
+                </div>
+
+                <div className={classes.content_pos} >
+                    <Typography variant={"h3"} className={classes.text}>
+                        {
+                            log.massages ? log.massages.map( c =>
                             {
-                                log.massages ? log.massages.map( c =>
-                                {
-                                    return <div>{c}</div>;
-                                }) : ''
-                            }
-                        </Typography>
-                    </CardContent>
-                </Card>
+                                return <div>{c}</div>;
+                            }) : ''
+                        }
+                    </Typography>
+                </div>
             </div>
         )
     }
