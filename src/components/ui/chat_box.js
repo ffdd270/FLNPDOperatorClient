@@ -46,17 +46,6 @@ const styles = (theme) =>(
     }
 );
 
-/*
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label={"recipe"} className={classes.avatar}>
-                                {name[0]}
-                            </Avatar>}
-                        title={ <div className={classes.user_name}>{name}</div> }
-                    />
- */
-
-
 class ChatBox extends React.Component
 {
     render() {
