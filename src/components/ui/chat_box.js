@@ -29,16 +29,14 @@ const styles = (theme) =>(
         user_name: {
             fontSize: "1.2rem",
             position: 'relative',
-
-            left: 50 + 10,
-            top: -30
+            "padding-left": 61,
+            "margin-top" : -30,
         },
         content_pos: {
             position: 'relative',
-            left: 61,
-            top: -30,
+            "padding-left": 61,
+            "margin-top" : 0,
             'box-sizing': 'border-box',
-            //width: "100%",
         },
         text: {
             position: 'relative',
