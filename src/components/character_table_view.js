@@ -6,13 +6,6 @@ import CharacterDelete from "./character_delete";
 
 class CharacterTable extends React.Component
 {
-    max_hp; // num
-    max_ap; // num
-    sex;
-    skill_set_id;
-
-    // num
-
     render()
     {
 
