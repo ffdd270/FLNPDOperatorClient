@@ -4,6 +4,7 @@ import socketio from "socket.io-client";
 import characters from "../../test/test_datas";
 import {Socket} from "../system/socket";
 import BattleChat from "../ui/battle_chat_main";
+import OperatorView from "../ui/operator_view";
 
 class BattleHome extends React.Component
 {
@@ -62,6 +63,7 @@ class BattleHome extends React.Component
                     }) : ''
                 }
                 <BattleChat/>
+                <OperatorView/>
             </div>
         )
     }

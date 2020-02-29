@@ -25,16 +25,18 @@ class OperatorUnitAddList extends React.Component
 
     }
 
-
     render() {
         const { classes } = this.props;
 
         return(
             <div>
-                
+
             </div>
         )
 
     }
 
 }
+
+
+export default withStyles(styles)(OperatorUnitAddList)

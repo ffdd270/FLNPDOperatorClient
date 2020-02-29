@@ -2,7 +2,7 @@ import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from "@material-ui/core/TableCell";
 import CharacterDelete from "../character_delete";
-
+import OperatorUnitAddList from "./operator_unit_add_list";
 
 
 class OperatorTableView extends React.Component
@@ -20,7 +20,7 @@ class OperatorTableView extends React.Component
                 <TableCell>{this.props.max_hp}</TableCell>
                 <TableCell>{this.props.max_ap}</TableCell>
                 <TableCell>{this.props.skill_set_id}</TableCell>
-                <TableCell><CharacterDelete id={this.props.id}/></TableCell>
+                <TableCell><OperatorUnitAddList id={this.props.id}/></TableCell>
             </TableRow>
         )
 
