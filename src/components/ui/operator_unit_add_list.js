@@ -22,15 +22,22 @@ class OperatorUnitAddList extends React.Component
     constructor( props ) {
         super( props );
 
+        this.onAddButton = this.onAddButton.bind( this );
+    }
+
+
+    onAddButton( )
+    {
 
     }
+
 
     render() {
         const { classes } = this.props;
 
         return(
             <div>
-
+                <Button variant={"contained"} color={"secondary"}> 삭제 </Button>
             </div>
         )
 

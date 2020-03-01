@@ -27,3 +27,6 @@ class OperatorTableView extends React.Component
     }
 
 }
+
+
+export default OperatorTableView;
