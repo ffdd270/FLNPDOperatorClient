@@ -61,7 +61,7 @@ class OperatorUnitAddList extends React.Component
             }
         };
 
-        // 쿼리문 쏘기! stringify fh qkRNjwnsek. 
+        // 쿼리문 쏘기! stringify 로 json string 으로 변환한다.
         return axios.post(url, qs.stringify({
             char_id: id,
             battle_id: "Sample"

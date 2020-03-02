@@ -1,7 +1,6 @@
 import React from 'react';
 import CharacterCardForm from '../ui/character_card_form'
 import socketio from "socket.io-client";
-import characters from "../../test/test_datas";
 import {Socket} from "../system/socket";
 import BattleChat from "../ui/battle_chat_main";
 import OperatorView from "../ui/operator_view";
@@ -29,10 +28,10 @@ class BattleHome extends React.Component
         Socket.AddEventHandler( "added unit", (msg)=>{
             console.log ( msg );
 
-            characters.push( msg );
+            this.state.characters.push( msg );
 
             this.setState({
-                characters: characters
+                characters: this.state.characters
             });
         });
 
@@ -54,6 +53,7 @@ class BattleHome extends React.Component
 
     render()
     {
+
         return (
             <div>
                 {
@@ -62,8 +62,8 @@ class BattleHome extends React.Component
                         return <CharacterCardForm character={ c } />
                     }) : ''
                 }
-                <BattleChat/>
                 <OperatorView/>
+                <BattleChat/>
             </div>
         )
     }

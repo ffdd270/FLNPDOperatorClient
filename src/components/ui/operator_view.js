@@ -13,12 +13,14 @@ const styles = (theme) =>(
     {
         root: {
             position: "fixed",
-            bottom: "200px",
+            bottom: "0%",
             width : "calc( 100% - 500px )",
-            height: "40%",
+            height: "20%",
+            background: "#edf2ff"
         },
 
         table: {
+            tableLayout: "fixed"
         }
     }
 );
@@ -50,7 +52,10 @@ class OperatorView extends React.Component
 
 
         return (
-            <div className={classes.root}>
+
+
+
+            <div className={classes.root} style={{ overflow: 'auto'}}>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
@@ -62,7 +67,7 @@ class OperatorView extends React.Component
                         </TableRow>
                     </TableHead>
 
-                    <TableBody>
+                    <TableBody style={{ overflow: 'auto', height: '100%'}}>
                         {
                             this.state.characters ? this.state.characters.map( c =>
                             {
@@ -70,9 +75,7 @@ class OperatorView extends React.Component
                                                           max_ap={c.max_ap} skill_set_id={c.skill_set_id} />
                             }) : ''
                         }
-
                     </TableBody>
-
                 </Table>
             </div>
         )
