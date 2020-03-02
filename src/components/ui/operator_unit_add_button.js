@@ -1,5 +1,4 @@
 import React from 'react';
-import { post } from 'axios';
 import {makeStyles, withStyles} from '@material-ui/core/styles';
 import {Card, DialogContent, DialogTitle, Paper, TextField} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -10,6 +9,9 @@ import {ChatLog} from "../system/chat_log";
 import List from "@material-ui/core/List";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
+import axios from 'axios';
+import qs from "querystring";
+
 
 
 const styles = (theme) =>(
@@ -28,9 +30,10 @@ class OperatorUnitAddList extends React.Component
 
     constructor( props ) {
         super( props );
-
         this.onAddButton = this.onAddButton.bind( this );
         this.onClose = this.onClose.bind( this );
+        this.onUnitAdd = this.onUnitAdd.bind( this );
+        this.query = this.query.bind(this);
     }
 
 
@@ -48,26 +51,33 @@ class OperatorUnitAddList extends React.Component
         });
     }
 
-    onUnitAdd( id )
+    query( id )
     {
-        const url = '/api/create_party_unit/Sample';
-        const formData = new FormData();
-
-        console.log( id );
-
-        formData.append( 'char_id', "" + id );
+        const url = '/api/create_party_unit';
 
         const config = {
             headers: {
-                'content-type': 'multipart/form-data'
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
         };
 
+        // 쿼리문 쏘기! stringify fh qkRNjwnsek. 
+        return axios.post(url, qs.stringify({
+            char_id: id,
+            battle_id: "Sample"
+        }), config);
+    }
+
+    onUnitAdd( id )
+    {
+        this.query( id ).then( (res) =>
+        {
+            console.log( res.data );
+        });
         this.setState( {
             open: false
         });
 
-        return post(url, formData, config);
     }
 
     render() {

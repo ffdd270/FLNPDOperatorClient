@@ -14,7 +14,8 @@ const styles = (theme) =>(
         root: {
             position: "fixed",
             bottom: "200px",
-            width : "calc( 100% - 500px )"
+            width : "calc( 100% - 500px )",
+            height: "40%",
         },
 
         table: {
