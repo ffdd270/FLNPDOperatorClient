@@ -3,7 +3,7 @@ import {makeStyles, withStyles} from '@material-ui/core/styles';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from "@material-ui/core/TableCell";
 import CharacterDelete from "../character_delete";
-import OperatorUnitAddList from "./operator_unit_add_list";
+import OperatorUnitAddList from "./operator_unit_add_button";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
@@ -13,11 +13,11 @@ const styles = (theme) =>(
     {
         root: {
             position: "fixed",
-            bottom: "200px"
+            bottom: "200px",
+            width : "calc( 100% - 500px )"
         },
 
-        tableHead: {
-
+        table: {
         }
     }
 );
@@ -50,8 +50,7 @@ class OperatorView extends React.Component
 
         return (
             <div className={classes.root}>
-                반가워오
-                <Table>
+                <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
                             {

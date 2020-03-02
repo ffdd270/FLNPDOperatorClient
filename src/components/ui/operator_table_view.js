@@ -2,8 +2,7 @@ import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from "@material-ui/core/TableCell";
 import CharacterDelete from "../character_delete";
-import OperatorUnitAddList from "./operator_unit_add_list";
-
+import OperatorUnitAddList from "./operator_unit_add_button";
 
 class OperatorTableView extends React.Component
 {
