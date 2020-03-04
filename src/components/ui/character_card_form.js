@@ -60,9 +60,12 @@ class CharacterCardForm extends  React.Component
         const { classes } = this.props;
         const character = this.props.character;
 
+        const left = this.props.set_position;
+        console.log("left??? " + left );
+
         return (
-            <div className={classes.root}>
-                <Card elevation={3}>
+            <div className={classes.root} >
+                <Card elevation={3} style={ {position:"relative",  left: left} }>
                     <CardContent className={classes.content}>
                         <img src={character.image}  alt="not loaded." className={classes.image}/>
 
