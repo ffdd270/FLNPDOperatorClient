@@ -69,6 +69,8 @@ class BattleHome extends React.Component
     {
         const { classes } = this.props;
 
+        console.log( classes );
+
         return (
             <div>
                 {
