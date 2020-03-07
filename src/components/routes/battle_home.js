@@ -82,7 +82,7 @@ class BattleHome extends React.Component
                         }
                         else
                         {
-                            return <CharacterCardForm character={c} set_position={500}/>
+                            return <CharacterCardForm character={c} set_position={250}/>
                         }
                     }) : ''
                 }
