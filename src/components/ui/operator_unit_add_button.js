@@ -9,9 +9,7 @@ import {ChatLog} from "../system/chat_log";
 import List from "@material-ui/core/List";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import axios from 'axios';
-import qs from "querystring";
-
+import {post_query} from "../system/util";
 
 
 const styles = (theme) =>(
@@ -53,19 +51,10 @@ class OperatorUnitAddList extends React.Component
 
     query( id )
     {
-        const url = '/api/create_party_unit';
-
-        const config = {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        };
-
-        // 쿼리문 쏘기! stringify 로 json string 으로 변환한다.
-        return axios.post(url, qs.stringify({
+        return post_query('create_party_unit', {
             char_id: id,
             battle_id: "Sample"
-        }), config);
+        });
     }
 
     onUnitAdd( id )
