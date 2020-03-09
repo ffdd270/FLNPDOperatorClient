@@ -22,11 +22,23 @@ class CreateBattlePage extends  React.Component
     constructor(props) {
         super(props);
         this.handleValueChange = this.handleValueChange.bind( this );
+        this.handleClickCreate = this.handleClickCreate.bind( this );
+        this.query = this.query.bind( this )
     }
 
     handleValueChange( event )
     {
+        this.setState( {
+            name: event.target.value
+        });
+    }
 
+    handleClickCreate( event )
+    {
+        if ( this.state.name !== "" )
+        {
+            return this.query( this.state.name );
+        }
     }
 
     query( battle_name )
@@ -40,8 +52,8 @@ class CreateBattlePage extends  React.Component
     render() {
         return(
             <div>
-                <TextField label="이름" type="text" name="name" value={this.state.name} onChange={this.handleValueChange} />
-
+                <TextField label="이름" type="text" name="name" value={this.state.name} onChange={this.handleValueChange}/>
+                <Button variant={"outlined"} color={"primary"}  onClick={this.handleClickCreate}>생성</Button>
             </div>
         )
     }
