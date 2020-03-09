@@ -7,6 +7,7 @@ import './index.css';
 import {Switch, BrowserRouter as Router, Route} from 'react-router-dom';
 import BattleHome from "./components/routes/battle_home";
 import {Socket} from "./components/system/socket";
+import CreateBattlePage from "./components/routes/create_battle";
 
 Socket.OnSocketInit();
 
@@ -14,6 +15,7 @@ ReactDOM.render(
     <Router>
         <Route  path="/list" component={App}/>
         <Route  path="/battle" component={BattleHome}/>
+        <Route  path={"/create_battle"} component={CreateBattlePage}/>
     </Router>, document.getElementById('root'));
 
 /*
