@@ -53,7 +53,7 @@ class OperatorUnitAddList extends React.Component
     {
         return post_query('create_party_unit', {
             char_id: id,
-            battle_id: "Sample"
+            battle_id: this.props.battle_id
         });
     }
 

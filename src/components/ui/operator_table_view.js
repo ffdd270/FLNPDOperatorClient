@@ -19,7 +19,7 @@ class OperatorTableView extends React.Component
                 <TableCell>{this.props.max_hp}</TableCell>
                 <TableCell>{this.props.max_ap}</TableCell>
                 <TableCell>{this.props.skill_set_id}</TableCell>
-                <TableCell><OperatorUnitAddList id={this.props.id}/></TableCell>
+                <TableCell><OperatorUnitAddList id={this.props.id} battle_id={this.props.battle_id}/></TableCell>
             </TableRow>
         )
 

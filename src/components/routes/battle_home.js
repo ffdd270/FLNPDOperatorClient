@@ -5,6 +5,7 @@ import socketio from "socket.io-client";
 import {Socket} from "../system/socket";
 import BattleChat from "../ui/battle_chat_main";
 import OperatorView from "../ui/operator_view";
+import BattleList from "../dialog/battle_list";
 
 const styles  = (theme) =>(
     {
@@ -22,17 +23,20 @@ const styles  = (theme) =>(
 class BattleHome extends React.Component
 {
     state = {
-        characters : []
+        characters: [],
+        battle_id: "",
     };
 
 
     constructor(props) {
         super(props);
-        this.componentDidMount = this.componentDidMount.bind( this );
+
+        this.setBattleSocket = this.setBattleSocket.bind( this );
+        this.onSelectBattle = this.onSelectBattle.bind( this );
     }
 
 
-    componentDidMount() {
+    setBattleSocket( battle_id ) {
         Socket.AddEventHandler( "units", (msg)=>{
             this.setState( {
                 characters: msg
@@ -49,14 +53,22 @@ class BattleHome extends React.Component
             });
         });
 
-        this.callGetCharacter('Sample').then(
+        this.callGetCharacter(battle_id).then(
             (json)=>
             {
                 this.setState( {
                     characters : json
                 } );
-            }
-    );
+            });
+
+        this.setState({
+            battle_id: battle_id
+        });
+    }
+
+    onSelectBattle( battle_id )
+    {
+        this.setBattleSocket( battle_id );
     }
 
     async callGetCharacter( id )
@@ -73,6 +85,7 @@ class BattleHome extends React.Component
 
         return (
             <div>
+                <BattleList onSelectBattle={this.onSelectBattle}/>
                 {
                     this.state.characters ? this.state.characters.map( c =>
                     {
@@ -86,7 +99,7 @@ class BattleHome extends React.Component
                         }
                     }) : ''
                 }
-                <OperatorView/>
+                <OperatorView battle_id={this.state.battle_id}/>
                 <BattleChat/>
             </div>
         )

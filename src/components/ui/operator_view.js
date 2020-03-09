@@ -72,7 +72,7 @@ class OperatorView extends React.Component
                             this.state.characters ? this.state.characters.map( c =>
                             {
                                 return <OperatorTableView id={c.id} image={c.image} name={c.name} max_hp={c.max_hp}
-                                                          max_ap={c.max_ap} skill_set_id={c.skill_set_id} />
+                                                          max_ap={c.max_ap} skill_set_id={c.skill_set_id} battle_id={this.props.battle_id} />
                             }) : ''
                         }
                     </TableBody>
