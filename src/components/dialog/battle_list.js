@@ -88,9 +88,6 @@ class BattleList extends React.Component
                                 } ) : ''
                             }
                         </List>
-
-
-
                     </DialogContent>
                 </Dialog>
             </div>

@@ -4,6 +4,7 @@ import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from "@material-ui/core/Typography";
 import {Card, CardContent} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 const styles = theme => (
     {
@@ -24,7 +25,7 @@ const styles = theme => (
         },
         name: {
             position: 'relative',
-            left: '0px',
+            marginLeft: '0px',
             bottom: '120px',
             paddingLeft: theme.spacing(16),
             color: 'teal',
@@ -40,6 +41,9 @@ const styles = theme => (
         image: {
             width: 128,
             height: 128,
+        },
+        turn_button: {
+            
         }
     }
 );
@@ -80,6 +84,8 @@ class CharacterCardForm extends  React.Component
                         <Typography variant="h2" className={classes.hp}>
                             {"AP : " + character.ap}
                         </Typography>
+                        
+                        <Button variant="contained" color="primary" className={classes.turn_button}>턴</Button>
                     </CardContent>
                 </Card>
             </div>
