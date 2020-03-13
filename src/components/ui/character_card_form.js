@@ -43,7 +43,7 @@ const styles = theme => (
             height: 128,
         },
         turn_button: {
-            
+
         }
     }
 );
@@ -57,6 +57,12 @@ class CharacterCardForm extends  React.Component
     constructor( props )
     {
         super(props);
+        this.onTurn = this.onTurn.bind( this );
+    }
+
+    onTurn( )
+    {
+
     }
 
     render()
@@ -85,7 +91,7 @@ class CharacterCardForm extends  React.Component
                             {"AP : " + character.ap}
                         </Typography>
                         
-                        <Button variant="contained" color="primary" className={classes.turn_button}>턴</Button>
+                        <Button variant="contained" color="primary" className={classes.turn_button} onClick={this.onTurn} >턴</Button>
                     </CardContent>
                 </Card>
             </div>
