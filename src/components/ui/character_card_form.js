@@ -29,7 +29,8 @@ const styles = theme => (
             bottom: '120px',
             paddingLeft: theme.spacing(16),
             color: 'teal',
-            fontSize: '2.0rem'
+            fontSize: '2.0rem',
+            width: '100px'
         },
         hp: {
             position: 'relative',
@@ -37,13 +38,16 @@ const styles = theme => (
             left:  theme.spacing(16),
             right: '2px',
             bottom: '120px',
+            width: '100px',
         },
         image: {
             width: 128,
             height: 128,
         },
         turn_button: {
-
+            position: "relative",
+            bottom: "152px",
+            left: "311px",
         }
     }
 );
@@ -51,18 +55,27 @@ const styles = theme => (
 class CharacterCardForm extends  React.Component
 {
     state = {
-        character : ''
+        character : '',
+        isHaveTurn : false,
     };
 
     constructor( props )
     {
         super(props);
         this.onTurn = this.onTurn.bind( this );
+        this.onHaveTurn = this.onHaveTurn.bind( this );
     }
 
     onTurn( )
     {
+        this.onHaveTurn();
+    }
 
+    onHaveTurn( )
+    {
+        this.setState( {
+            isHaveTurn: true
+        });
     }
 
     render()
@@ -73,9 +86,11 @@ class CharacterCardForm extends  React.Component
         const left = this.props.set_position;
         console.log("left??? " + left );
 
+        let color = this.state.isHaveTurn ? "#74c0fc" : "#FFFFFF";
+
         return (
             <div className={classes.root} >
-                <Card elevation={3} style={ {position:"relative",  left: left} }>
+                <Card elevation={3} style={ {position:"relative", left: left, backgroundColor: color } }>
                     <CardContent className={classes.content}>
                         <img src={character.image}  alt="not loaded." className={classes.image}/>
 
