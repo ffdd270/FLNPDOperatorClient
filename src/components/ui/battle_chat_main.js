@@ -158,7 +158,8 @@ class BattleChat extends React.Component
         Socket.SendMsg( "chat",
             {
                 sender: "하루가카",
-                msg: this.state.chat_msg
+                msg: this.state.chat_msg,
+                battle_id: this.props.battle_id
             } );
 
         this.setState( {

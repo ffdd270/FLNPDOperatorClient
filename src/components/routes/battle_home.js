@@ -109,7 +109,7 @@ class BattleHome extends React.Component
                     {
                         friends.map( c =>
                         {
-                            return <CharacterCardForm character={c} set_position={0}/>
+                            return <CharacterCardForm character={c} battle_id={this.state.battle_id}/>
                         })
                     }
                 </div>
@@ -118,13 +118,13 @@ class BattleHome extends React.Component
                     {
                         enemys.map( c =>
                         {
-                            return <CharacterCardForm character={c} set_position={0}/>
+                            return <CharacterCardForm character={c} battle_id={this.state.battle_id}/>
                         })
                     }
                 </div>
 
                 <OperatorView battle_id={this.state.battle_id}/>
-                <BattleChat/>
+                <BattleChat  battle_id={this.state.battle_id}/>
             </div>
         )
     }
