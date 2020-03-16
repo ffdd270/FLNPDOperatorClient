@@ -49,17 +49,20 @@ class OperatorUnitAddList extends React.Component
         });
     }
 
-    query( id )
+    query( id, unit_type )
     {
         return post_query('create_party_unit', {
             char_id: id,
-            battle_id: this.props.battle_id
+            battle_id: this.props.battle_id,
+            unit_type: unit_type
         });
     }
 
-    onUnitAdd( id )
+    onUnitAdd( id, is_enemy )
     {
-        this.query( id ).then( (res) =>
+        let unit_type = is_enemy === true ? "enemy" : "friend";
+
+        this.query( id, unit_type ).then( (res) =>
         {
             console.log( res.data );
         });
@@ -78,20 +81,24 @@ class OperatorUnitAddList extends React.Component
 
                 <Dialog open={this.state.open} onClose={this.onClose}>
                     <DialogTitle onClose={this.onClose}>
-                        경고!
+                        주의!
                     </DialogTitle>
 
                     <DialogContent>
                         <Typography gutterBottom>
-                            선택한 캐릭터가 삭제됩니다. 복구는 지원하지 않습니다.
+                            선택한 캐릭터가 전투에 추가됩니다. 어느 편으로 넣으시겠어요?
                         </Typography>
                     </DialogContent>
                     <DialogActions>
                         <Button variant="contained" color="primary" onClick={event =>
                         {
                             this.onUnitAdd(this.props.id);
-                        } }> 추가 </Button>
-                        <Button variant="outlined" color="primary" onClick={this.onClose}> 닫기 </Button>
+                        } }> 아군 </Button>
+                        <Button variant="outlined"  color="primary" onClick={event =>
+                        {
+                            this.onUnitAdd(this.props.id, true);
+                        } }> 적 </Button>
+                        <Button variant="outlined" color="secondary" onClick={this.onClose}> 닫기 </Button>
                     </DialogActions>
                 </Dialog>
 
