@@ -11,11 +11,11 @@ const styles  = (theme) =>(
     {
         enemy: {
             position: 'fixed',
-            left: 0
+            left: 500
         },
         friend: {
             position: 'fixed',
-            left: 500
+            left: 0
         }
     }
 );
@@ -73,7 +73,7 @@ class BattleHome extends React.Component
 
     async callGetCharacter( id )
     {
-        const response = await fetch("/api/get_party_units/" + id);
+        const response = await fetch("/api/get_all_units/" + id);
         return await response.json();
     }
 
@@ -83,22 +83,46 @@ class BattleHome extends React.Component
 
         console.log( classes );
 
+        let enemys = [];
+        let friends = [];
+
+        if( this.state.characters )
+        {
+            this.state.characters.map( c =>
+            {
+                if( c.is_enemy )
+                {
+                    enemys.push( c );
+                }
+                else
+                {
+                    friends.push( c );
+                }
+            } );
+        }
+
+
         return (
             <div>
                 <BattleList onSelectBattle={this.onSelectBattle}/>
-                {
-                    this.state.characters ? this.state.characters.map( c =>
+                <div className={classes.friend}>
                     {
-                        if ( c.is_enemy )
+                        friends.map( c =>
                         {
                             return <CharacterCardForm character={c} set_position={0}/>
-                        }
-                        else
+                        })
+                    }
+                </div>
+
+                <div className={classes.enemy}>
+                    {
+                        enemys.map( c =>
                         {
-                            return <CharacterCardForm character={c} set_position={500}/>
-                        }
-                    }) : ''
-                }
+                            return <CharacterCardForm character={c} set_position={0}/>
+                        })
+                    }
+                </div>
+
                 <OperatorView battle_id={this.state.battle_id}/>
                 <BattleChat/>
             </div>
