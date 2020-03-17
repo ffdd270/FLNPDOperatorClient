@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import {Card, CardContent} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {Socket} from "../system/socket";
+import {Eventer} from "../system/eventer";
 
 const styles = theme => (
     {
@@ -62,6 +63,11 @@ class CharacterCardForm extends  React.Component
 
     battle_id = '';
 
+    // 대충 간단히 규격만..
+    character = {
+        uid: ''
+    };
+
     constructor( props )
     {
         super(props);
@@ -69,27 +75,35 @@ class CharacterCardForm extends  React.Component
         this.onHaveTurn = this.onHaveTurn.bind( this );
 
         this.battle_id = props.battle_id;
+        this.character = props.character;
 
-        Socket.AddEventHandler( "", {
 
+        Eventer.AddEventHandler( "turn", (msg) =>
+        {
+            msg = msg === undefined ? { turn_unit_uid: -765 } :  msg;
+
+            // uid가 같으면 턴이 온 거고. 아니면 턴이 해제 OR 없던거.
+            this.onHaveTurn(msg.turn_unit_uid === this.character.uid );
         });
-
     }
 
     onTurn( )
     {
-        this.onHaveTurn();
-
         Socket.SendMsg( "command", {
-            msg: "/turn " + this.props.character.uid,
+            msg: "/turn " + this.character.uid,
             battle_id : this.battle_id
         }  );
     }
 
-    onHaveTurn( )
+    onHaveTurn( flag )
     {
+        if( flag === this.state.isHaveTurn ) // 상태가 같았다면 갱신하지 않는다.
+        {
+            return;
+        }
+
         this.setState( {
-            isHaveTurn: true
+            isHaveTurn: flag
         });
     }
 
