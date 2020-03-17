@@ -6,6 +6,8 @@ import {Socket} from "../system/socket";
 import BattleChat from "../ui/battle_chat_main";
 import OperatorView from "../ui/operator_view";
 import BattleList from "../dialog/battle_list";
+import {ChatLog} from "../system/chat_log";
+import {Eventer} from "../system/eventer";
 
 const styles  = (theme) =>(
     {
@@ -51,6 +53,11 @@ class BattleHome extends React.Component
             this.setState({
                 characters: this.state.characters
             });
+        });
+
+        Socket.AddEventHandler( 'command', (msg)=>
+        {
+            Eventer.SendMsg(msg.command, msg);
         });
 
         this.callGetCharacter(battle_id).then(

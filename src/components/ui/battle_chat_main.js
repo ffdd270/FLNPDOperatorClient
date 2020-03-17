@@ -7,6 +7,7 @@ import {Socket} from "../system/socket";
 import ChatBox from "./chat_box";
 import {ChatLog} from "../system/chat_log";
 import List from "@material-ui/core/List";
+import {Eventer} from "../system/eventer";
 
 const styles = (theme) =>(
     {
@@ -109,8 +110,7 @@ class BattleChat extends React.Component
             this.messagesEnd.scrollIntoView({behavior: "smooth"});
         });
 
-        Socket.AddEventHandler( 'command', (msg)=>
-        {
+        Eventer.AddEventHandler( 'dice', (msg)=>{
             if( msg.command === "dice" )
             {
                 msg.max_number = msg.max_number === undefined ? 0 : msg.max_number;
@@ -128,8 +128,7 @@ class BattleChat extends React.Component
                     }
                 )
             }
-
-        });
+        } );
     }
 
     onChatTextChange( event )

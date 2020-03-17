@@ -69,6 +69,11 @@ class CharacterCardForm extends  React.Component
         this.onHaveTurn = this.onHaveTurn.bind( this );
 
         this.battle_id = props.battle_id;
+
+        Socket.AddEventHandler( "", {
+
+        });
+
     }
 
     onTurn( )
