@@ -50,6 +50,11 @@ const styles = theme => (
             position: "relative",
             bottom: "152px",
             left: "311px",
+        },
+        attack_button: {
+            position: "relative",
+            bottom: "198px",
+            left: "248px"
         }
     }
 );
@@ -73,6 +78,7 @@ class CharacterCardForm extends  React.Component
         super(props);
         this.onTurn = this.onTurn.bind( this );
         this.onHaveTurn = this.onHaveTurn.bind( this );
+        this.onAttack = this.onAttack.bind( this );
 
         this.battle_id = props.battle_id;
         this.character = props.character;
@@ -93,6 +99,14 @@ class CharacterCardForm extends  React.Component
             msg: "/turn " + this.character.uid,
             battle_id : this.battle_id
         }  );
+    }
+
+    onAttack()
+    {
+        Socket.SendMsg( "command", {
+            request: "attack",
+            params: this.character.uid.toString()
+        });
     }
 
     onHaveTurn( flag )
@@ -133,6 +147,7 @@ class CharacterCardForm extends  React.Component
                         </Typography>
                         
                         <Button variant="contained" color="primary" className={classes.turn_button} onClick={this.onTurn} >턴</Button>
+                        <Button variant="contained" color="secondary" className={classes.attack_button} onClick={this.onAttack} >공격</Button>
                     </CardContent>
                 </Card>
             </div>
