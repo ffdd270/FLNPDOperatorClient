@@ -129,6 +129,10 @@ class BattleChat extends React.Component
                 )
             }
         } );
+
+        Eventer.AddEventHandler( 'attack', (msg)=>{
+            console.log( msg );
+        } );
     }
 
     onChatTextChange( event )

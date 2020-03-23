@@ -131,7 +131,7 @@ class BattleHome extends React.Component
                 </div>
 
                 <OperatorView battle_id={this.state.battle_id}/>
-                <BattleChat  battle_id={this.state.battle_id}/>
+                <BattleChat   battle_id={this.state.battle_id}/>
             </div>
         )
     }
